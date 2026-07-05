@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <!-- Header Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 40px; color: white;">
+                <h1 style="font-weight: 700; margin-bottom: 10px;">🏠 Available Rooms</h1>
+                <p style="font-size: 16px; margin: 0; opacity: 0.9;">Browse and apply for your preferred accommodation</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Info Alert -->
+    {% if payment_info %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-success border-0 shadow-sm" style="border-radius: 12px; background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white;">
+                <h5 class="mb-2" style="font-weight: 700;">✓ Pending Payment</h5>
+                <p class="mb-0">Your booking is registered! Use Control #<strong>{{ payment_info.control_number }}</strong> to complete payment. Amount: <strong>TZS {{ payment_info.amount|floatformat:0 }}</strong></p>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert border-0 shadow-sm" style="background-color: #e3f2fd; border-left: 4px solid #2196F3; border-radius: 8px; color: #1565c0;">
+                <i class="fas fa-info-circle"></i> Click the <strong>Apply</strong> button on any room to reserve it and generate your payment control number.
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Rooms Grid -->
+    <div class="row g-4">
+        {% for room in rooms %}
+        <div class="col-lg-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; overflow: hidden; transition: all 0.3s ease;">
+                <!-- Card Header with Color -->
+                <div style="background: linear-gradient(135deg, {{ room.primary_color }} 0%, {{ room.secondary_color }} 100%); padding: 20px; color: white;">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="mb-1" style="font-weight: 700; font-size: 20px;">{{ room.room_number }}</h5>
+                            <small style="opacity: 0.9;">{{ room.block.name }}</small>
+                        </div>
+                        <div style="background-color: rgba(255,255,255,0.3); padding: 8px 12px; border-radius: 6px;">
+                            <small style="font-weight: 600;">{{ room.status_badge }}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body" style="padding: 20px;">
+                    <!-- Room Details Grid -->
+                    <div class="row mb-3">
+                        <div class="col-6 mb-3">
+                            <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Floor</small>
+                            <p class="mb-0" style="font-weight: 600; font-size: 16px; color: #333;">{{ room.floor_number }}</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Capacity</small>
+                            <p class="mb-0" style="font-weight: 600; font-size: 16px; color: #333;">{{ room.capacity }}</p>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted" style="font-weight: 600;">Occupancy</small>
+                            <span class="badge" style="background-color: {{ room.primary_color }}; color: white;">{{ room.current_occupants }}/{{ room.capacity }}</span>
+                        </div>
+                        <div style="background-color: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="background: linear-gradient(90deg, {{ room.primary_color }} 0%, {{ room.secondary_color }} 100%); width: {{ room.occupancy_percentage }}%; height: 100%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Price Section -->
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 15px; border-radius: 8px; color: white; margin-bottom: 15px; text-align: center;">
+                        <small style="opacity: 0.9;">Price per Semester</small>
+                        <h5 class="mb-0" style="font-weight: 700;">TZS {{ room.price_per_semester|floatformat:0 }}</h5>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="mb-3">
+                        <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Amenities</small>
+                        <div class="mt-2">
+                            {% if room.has_communal_ensuite %}
+                                <span class="badge" style="background-color: #e8f4f8; color: #00bcd4; margin-right: 6px;">🚿 Ensuite</span>
+                            {% else %}
+                                <span class="badge" style="background-color: #f0f9ff; color: #2196F3;">🚿 Standard</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Footer - Action Button -->
+                <div style="padding: 15px 20px; background-color: #f8f9fa; border-top: 1px solid #e0e0e0;">
+                    <a href="{% url 'apply_room' %}?room_id={{ room.id }}" class="btn w-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-weight: 600; padding: 10px; border-radius: 8px; transition: all 0.3s ease;">
+                        <i class="fas fa-check-circle"></i> Apply for Room
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+                <div class="card-body text-center p-5">
+                    <i class="fas fa-inbox" style="font-size: 48px; color: #ddd; margin-bottom: 20px;"></i>
+                    <h5 style="color: #999; font-weight: 600;">No Rooms Available</h5>
+                    <p class="text-muted mb-0">Check back later for available accommodations</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3) !important;
+    }
+    
+    .badge {
+        font-weight: 600;
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .container-fluid {
+            padding: 12px;
+        }
+    }
+</style>
+
+{% endblock %}
+

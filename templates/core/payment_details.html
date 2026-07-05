@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <!-- Success Header -->
+    <div class="row mb-4">
+        <div class="col-md-10 mx-auto">
+            <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); border-radius: 15px;">
+                <div class="card-body text-white p-4">
+                    <div class="d-flex align-items-center">
+                        <div style="font-size: 40px; margin-right: 20px;">✓</div>
+                        <div>
+                            <h5 class="mb-1" style="font-weight: 700;">Booking Confirmed!</h5>
+                            <p class="mb-0 small">Your room application has been successfully registered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Payment Card -->
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <!-- Control Number - Featured Section -->
+            <div class="card border-0 shadow-lg mb-4" style="background: linear-gradient(135deg, #FF6B6B 0%, #ee5a6f 100%); border-radius: 15px; overflow: hidden;">
+                <div class="card-body text-white p-5 text-center">
+                    <small class="text-white-50" style="font-weight: 600; font-size: 12px;">CONTROL NUMBER</small>
+                    <h2 class="mb-2" style="font-weight: 700; font-size: 32px; letter-spacing: 2px;">{{ payment.control_number }}</h2>
+                    <small class="text-white-50">Use this number to complete your payment</small>
+                </div>
+            </div>
+
+            <!-- Details Grid -->
+            <div class="row g-3 mb-4">
+                <!-- Booking Information -->
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm" style="border-radius: 12px; overflow: hidden; height: 100%;">
+                        <div class="card-header" style="background-color: #e8f4f8; border-bottom: 3px solid #00bcd4; padding: 15px;">
+                            <h6 class="mb-0" style="color: #00bcd4; font-weight: 600;">📋 Booking Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <small class="text-muted" style="font-weight: 600;">Student</small>
+                                <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.student.username }}</p>
+                            </div>
+                            <hr class="my-3">
+                            <div class="mb-3">
+                                <small class="text-muted" style="font-weight: 600;">Full Name</small>
+                                <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.first_name }} {{ booking.middle_name }} {{ booking.last_name }}</p>
+                            </div>
+                            <hr class="my-3">
+                            <div class="mb-3">
+                                <small class="text-muted" style="font-weight: 600;">Semester</small>
+                                <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.semester }}</p>
+                            </div>
+                            <hr class="my-3">
+                            <div>
+                                <small class="text-muted" style="font-weight: 600;">Booking Date</small>
+                                <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.booking_date|date:"d M Y H:i" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room Information -->
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm" style="border-radius: 12px; overflow: hidden; height: 100%;">
+                        <div class="card-header" style="background-color: #fff3e0; border-bottom: 3px solid #ff9800; padding: 15px;">
+                            <h6 class="mb-0" style="color: #ff9800; font-weight: 600;">🏠 Room Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <small class="text-muted" style="font-weight: 600;">Block</small>
+                                <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.room.block.name }} ({{ booking.room.block.get_gender_category_display }})</p>
+                            </div>
+                            <hr class="my-3">
+                            <div class="mb-3">
+                                <small class="text-muted" style="font-weight: 600;">Room Number</small>
+                                <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.room.room_number }}</p>
+                            </div>
+                            <hr class="my-3">
+                            <div class="mb-3">
+                                <small class="text-muted" style="font-weight: 600;">Floor</small>
+                                <p class="mb-0" style="font-weight: 500; font-size: 15px;">Floor {{ booking.room.floor_number }}</p>
+                            </div>
+                            <hr class="my-3">
+                            <div>
+                                <small class="text-muted" style="font-weight: 600;">Status</small>
+                                <p class="mb-0">
+                                    <span class="badge" style="background-color: #ff9800; font-size: 12px; padding: 6px 12px;">{{ booking.get_status_display }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 12px; overflow: hidden;">
+                <div class="card-header" style="background-color: #f3e5f5; border-bottom: 3px solid #9c27b0; padding: 15px;">
+                    <h6 class="mb-0" style="color: #9c27b0; font-weight: 600;">💳 Payment Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <small class="text-muted" style="font-weight: 600;">Amount to Pay</small>
+                            <h4 class="mb-0" style="color: #4CAF50; font-weight: 700;">TZS {{ payment.amount|floatformat:0 }}</h4>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <small class="text-muted" style="font-weight: 600;">Payment Status</small>
+                            <p class="mb-0">
+                                <span class="badge" style="background-color: {% if payment.is_successful %}#4CAF50{% else %}#ff9800{% endif %}; font-size: 12px; padding: 6px 12px;">
+                                    {% if payment.is_successful %}✓ Paid{% else %}Pending Payment{% endif %}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 12px; overflow: hidden;">
+                <div class="card-header" style="background-color: #e8f5e9; border-bottom: 3px solid #4CAF50; padding: 15px;">
+                    <h6 class="mb-0" style="color: #4CAF50; font-weight: 600;">📞 Contact Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <small class="text-muted" style="font-weight: 600;">Phone Number</small>
+                            <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.phone_number }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <small class="text-muted" style="font-weight: 600;">Email</small>
+                            <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.email }}</p>
+                        </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <small class="text-muted" style="font-weight: 600;">Region</small>
+                            <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.region }}</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <small class="text-muted" style="font-weight: 600;">District</small>
+                            <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.district }}</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <small class="text-muted" style="font-weight: 600;">Ward</small>
+                            <p class="mb-0" style="font-weight: 500; font-size: 15px;">{{ booking.ward }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Instructions -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);">
+                <div class="card-header" style="background-color: #e0e0e0; border-bottom: 3px solid #666; padding: 15px;">
+                    <h6 class="mb-0" style="color: #333; font-weight: 600;">ℹ️ How to Pay</h6>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info border-0 mb-0" style="background-color: #e3f2fd; color: #1565c0;">
+                        <h6 style="font-weight: 600; margin-bottom: 10px;">Payment Methods Available:</h6>
+                        <ul class="mb-0">
+                            <li><strong>GePG Portal:</strong> Visit billing.gepg.go.tz and use the control number above</li>
+                            <li><strong>M-Pesa:</strong> Use Paybill number with the control number as reference</li>
+                            <li><strong>Bank Transfer:</strong> Include the control number in your payment reference</li>
+                            <li><strong>Institution Channel:</strong> Use your institution's preferred billing method</li>
+                        </ul>
+                    </div>
+                    <div class="mt-3 p-3" style="background-color: #fff9c4; border-left: 4px solid #fbc02d; border-radius: 4px;">
+                        <small><strong>⚠️ Important:</strong> After successful payment, your booking status will automatically be updated to "Confirmed". Please allow 24 hours for payment verification.</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row g-2 mt-4">
+                <div class="col-md-6">
+                    <a href="{% url 'my_bookings' %}" class="btn btn-outline-primary w-100" style="padding: 12px; font-weight: 600; border-radius: 8px;">
+                        <i class="fas fa-list"></i> View My Bookings
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'rooms' %}" class="btn text-white w-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 12px; font-weight: 600; border-radius: 8px;">
+                        <i class="fas fa-arrow-left"></i> Back to Rooms
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+    }
+    
+    .card-header {
+        font-weight: 600;
+    }
+    
+    .badge {
+        font-weight: 600;
+    }
+    
+    .btn {
+        transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    small.text-muted {
+        color: #999 !important;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    hr {
+        margin: 12px 0;
+        opacity: 0.2;
+    }
+</style>
+
+{% endblock %}

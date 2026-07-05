@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hostel Management{% endblock %}</title>
+    <!-- Corrected Tailwind CSS CDN link -->
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'rooms' %}" class="text-xl font-bold">Campus Housing</a>
+            <div class="space-x-4">
+                <a href="{% url 'rooms' %}" class="hover:underline">Available Rooms</a>
+                <a href="{% url 'my_bookings' %}" class="hover:underline">My Bookings</a>
+                <a href="{% url 'contact' %}" class="hover:underline">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto flex-grow p-6">
+        <!-- Notification Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="p-4 mb-4 text-sm rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 text-center">
+        <p>&copy; 2026 Campus Housing Department</p>
+    </footer>
+
+</body>
+</html>
+

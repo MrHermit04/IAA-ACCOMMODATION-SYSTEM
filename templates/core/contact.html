@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2>Contact Housing Administration</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Need help with your room allocation or booking? Get in touch with our team.</p>
+                    <hr>
+                    
+                    <h4>Contact Info:</h4>
+                    <ul class="list-unstyled mb-4">
+                        <li><strong>Email:</strong> iaahousing@institute.edu</li>
+                        <li><strong>Phone:</strong> +255 785452496</li>
+                        <li><strong>Office Location:</strong> Administration Building, Room 101</li>
+                        <li><strong>Office Hours:</strong> Monday - Friday, 8:00 AM - 5:00 PM</li>
+                    </ul>
+
+                    <h4>Frequently Asked Questions (FAQs):</h4>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Can I change my booked room?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, you can cancel your current pending booking and apply for another room provided it is still available and not at full capacity.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    How do I know my booking is confirmed?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Once your payment has been verified by the finance department, your booking status will change from "Pending Payment" to "Confirmed" on your <strong><a href="{% url 'my_bookings' %}">My Bookings</a></strong> page.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

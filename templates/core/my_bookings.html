@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Room Applications</h2>
+    
+    {% if bookings %}
+        <div class="row">
+            {% for booking in bookings %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ booking.room }}</h5>
+                            <p class="card-text">
+                                <strong>Semester:</strong> {{ booking.semester }}<br>
+                                <strong>Date Applied:</strong> {{ booking.booking_date|date:"F d, Y" }}<br>
+                                <strong>Status:</strong> 
+                                <span class="badge 
+                                    {% if booking.status == 'CONFIRMED' %}bg-success
+                                    {% elif booking.status == 'PENDING' %}bg-warning
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ booking.get_status_display }}
+                                </span>
+                            </p>
+                            {% if booking.status == 'PENDING' %}
+                                <form action="{% url 'cancel_booking' booking.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-danger">Cancel Booking</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't submitted any room applications yet. <a href="{% url 'room_list' %}">Browse available rooms</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+ 

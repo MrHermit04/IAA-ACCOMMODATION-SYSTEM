@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | IAA Accommodation System</title>
+    <style>
+        /* IAA Accommodation System Color Palette */
+        :root {
+            --primary-blue: #003366;    /* Deep Navy */
+            --secondary-gold: #DAA520;  /* Gold/Yellow */
+            --bg-light: #F4F6F9;        /* Soft Off-White/Gray */
+            --text-dark: #333333;       /* Dark Gray */
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary-blue);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--white);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-gold);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.9)), url('https://unsplash.com') no-repeat center center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--bg-light);
+        }
+
+        .hero .btn {
+            background-color: var(--secondary-gold);
+            color: var(--primary-blue);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .hero .btn:hover {
+            background-color: var(--white);
+        }
+
+        /* Dashboard Cards */
+        .dashboard {
+            max-width: 1200px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .card a {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .card a:hover {
+            background-color: var(--secondary-gold);
+            color: var(--primary-blue);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">IAA Hostel Portal</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'rooms' %}">Rooms</a></li>
+            <li><a href="{% url 'my_bookings' %}">My Bookings</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to IAA Accommodation</h1>
+        <p>Your comfortable home away from home. Secure your room and manage your stay online.</p>
+    </div>
+
+    <!-- Dashboard/Quick Links -->
+    <div class="dashboard">
+        <div class="card">
+            <h3>Room Availability</h3>
+            <p>Check the latest status of available single, double, and premium rooms.</p>
+            <a href="{% url 'rooms' %}">View Rooms</a>
+        </div>
+        <div class="card">
+            <h3>Room Allocation</h3>
+            <p>Submit your application and get allocated to your preferred hall of residence.</p>
+            <a href="{% url 'rooms' %}">Apply Now</a>
+        </div>
+        <div class="card">
+            <h3>Maintenance Request</h3>
+            <p>Report any faults or request assistance in your room or hostel block.</p>
+            <a href="{% url 'contact' %}">Report an Issue</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 IAA Accommodation System. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
+

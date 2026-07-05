@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-md-8 mx-auto">
+            <a href="{% url 'rooms' %}" class="btn btn-outline-secondary btn-sm mb-3">
+                <i class="fas fa-arrow-left"></i> Back to Rooms
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Form Card -->
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
+                <!-- Header with gradient background -->
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 20px;">
+                    <h2 class="text-white mb-2" style="font-weight: 700;">Room Application Form</h2>
+                    <p class="text-white-50 mb-0">Complete all fields to reserve your room</p>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div style="background-color: #f8f9fa; padding: 30px;">
+                        
+                        {{ form.non_field_errors }}
+
+                        <!-- Selected Room Info (if coming from rooms page) -->
+                        {% if selected_room %}
+                        <div class="card mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 10px;">
+                            <div class="card-body text-white">
+                                <small class="text-white-50" style="font-weight: 600;">✓ SELECTED ROOM</small>
+                                <h5 class="mb-1" style="font-weight: 700;">{{ selected_room.room_number }}</h5>
+                                <small class="text-white-50">{{ selected_room.block.name }} • Floor {{ selected_room.floor_number }} • TZS {{ selected_room.price_per_semester|floatformat:0 }}/semester</small>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Room Selection Section (if not coming from rooms page) -->
+                        {% if not selected_room %}
+                        <div class="card border-0 mb-4" style="border-radius: 10px; overflow: hidden;">
+                            <div class="card-header" style="background-color: #e7f3ff; border-bottom: 3px solid #667eea; padding: 12px 16px;">
+                                <h6 class="mb-0" style="color: #667eea; font-weight: 600;">🏠 Select Room</h6>
+                            </div>
+                            <div class="card-body">
+                                <label for="{{ form.room.id_for_label }}" class="form-label fw-600">Choose a Room <span class="text-danger">*</span></label>
+                                {{ form.room }}
+                                {% if form.room.errors %}
+                                    <div class="invalid-feedback d-block text-danger">{{ form.room.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <!-- Hidden room field if selected -->
+                        {{ form.room }}
+                        {% endif %}
+
+                        <!-- Semester Section -->
+                        <div class="card border-0 mb-4" style="border-radius: 10px; overflow: hidden;">
+                            <div class="card-header" style="background-color: #e7f3ff; border-bottom: 3px solid #667eea; padding: 12px 16px;">
+                                <h6 class="mb-0" style="color: #667eea; font-weight: 600;">📅 Academic Term</h6>
+                            </div>
+                            <div class="card-body">
+                                <label for="{{ form.semester.id_for_label }}" class="form-label fw-600">Semester <span class="text-danger">*</span></label>
+                                {{ form.semester }}
+                                {% if form.semester.errors %}
+                                    <div class="invalid-feedback d-block text-danger">{{ form.semester.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Personal Information Section -->
+                        <div class="card border-0 mb-4" style="border-radius: 10px; overflow: hidden;">
+                            <div class="card-header" style="background-color: #fff3e0; border-bottom: 3px solid #ff9800; padding: 12px 16px;">
+                                <h6 class="mb-0" style="color: #ff9800; font-weight: 600;">👤 Personal Information</h6>
+                            </div>
+                            <div class="card-body">
+                                <!-- Names Row -->
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-4">
+                                        <label for="{{ form.first_name.id_for_label }}" class="form-label fw-500">First Name <span class="text-danger">*</span></label>
+                                        {{ form.first_name }}
+                                        {% if form.first_name.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.first_name.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="{{ form.middle_name.id_for_label }}" class="form-label fw-500">Middle Name</label>
+                                        {{ form.middle_name }}
+                                        {% if form.middle_name.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.middle_name.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="{{ form.last_name.id_for_label }}" class="form-label fw-500">Last Name <span class="text-danger">*</span></label>
+                                        {{ form.last_name }}
+                                        {% if form.last_name.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.last_name.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <!-- Gender and Contact -->
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="{{ form.gender.id_for_label }}" class="form-label fw-500">Gender <span class="text-danger">*</span></label>
+                                        {{ form.gender }}
+                                        {% if form.gender.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.gender.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.phone_number.id_for_label }}" class="form-label fw-500">Phone Number <span class="text-danger">*</span></label>
+                                        {{ form.phone_number }}
+                                        {% if form.phone_number.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.phone_number.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label fw-500">Email <span class="text-danger">*</span></label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <div class="invalid-feedback d-block text-danger">{{ form.email.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Information Section -->
+                        <div class="card border-0 mb-4" style="border-radius: 10px; overflow: hidden;">
+                            <div class="card-header" style="background-color: #f0f9ff; border-bottom: 3px solid #00bcd4; padding: 12px 16px;">
+                                <h6 class="mb-0" style="color: #00bcd4; font-weight: 600;">📍 Location Information</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="{{ form.region.id_for_label }}" class="form-label fw-500">Region <span class="text-danger">*</span></label>
+                                        {{ form.region }}
+                                        {% if form.region.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.region.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="{{ form.district.id_for_label }}" class="form-label fw-500">District <span class="text-danger">*</span></label>
+                                        {{ form.district }}
+                                        {% if form.district.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.district.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="{{ form.ward.id_for_label }}" class="form-label fw-500">Ward <span class="text-danger">*</span></label>
+                                        {{ form.ward }}
+                                        {% if form.ward.errors %}
+                                            <div class="invalid-feedback d-block text-danger">{{ form.ward.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <a href="{% url 'rooms' %}" class="btn btn-outline-secondary w-100" style="padding: 10px;">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn text-white w-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; font-weight: 600; padding: 10px;">
+                                    <i class="fas fa-check"></i> Generate Control Number
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control, .form-select {
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 8px 12px;
+        transition: all 0.3s ease;
+        font-size: 14px;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #667eea !important;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15) !important;
+        outline: none;
+    }
+    
+    .form-label {
+        margin-bottom: 6px;
+        color: #333;
+        font-size: 13px;
+    }
+    
+    .card {
+        border-radius: 10px !important;
+        transition: transform 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    
+    .card-header {
+        padding: 12px 16px !important;
+        font-weight: 600;
+    }
+    
+    .fw-600 {
+        font-weight: 600;
+    }
+    
+    .fw-500 {
+        font-weight: 500;
+    }
+    
+    .btn {
+        transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+</style>
+
+{% endblock %}
+
