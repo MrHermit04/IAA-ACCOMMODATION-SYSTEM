@@ -7,7 +7,7 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'iaa-accommodation-system.onrender.com'
+    'IAA-ACCOMMODATION-SYSTEM.onrender.com'
 ]
 
 
