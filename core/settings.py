@@ -4,11 +4,17 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-12345')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'iaa-accommodation-system.onrender.com'
-]
+
+
+ALLOWED_HOSTS = []
+render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
+if render_host:
+    ALLOWED_HOSTS.append(render_host)
+else:
+    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1'])
+
+
 
 
 
