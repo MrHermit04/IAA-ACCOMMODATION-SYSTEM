@@ -1,5 +1,7 @@
-import os
+from pathlib import path
 
+import os
+BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-12345')
 DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
