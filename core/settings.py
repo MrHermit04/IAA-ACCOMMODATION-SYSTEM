@@ -10,6 +10,7 @@ ALLOWED_HOSTS = [
     'iaa-accommodation-system.onrender.com'
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
