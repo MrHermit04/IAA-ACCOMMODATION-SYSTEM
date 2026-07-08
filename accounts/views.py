@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from core.forms import RoomBookingForm
 from django.core.exceptions import ValidationError
 from django.views.decorators.http import require_POST
-from djando.paginator import paginator
+from django.paginator import paginator
 
 # 1. User Registration View
 def register_view(request):
