@@ -69,15 +69,15 @@ def home_view(request):
     return render(request, 'core/home.html', context)
 
 def room_list(request):
-    rooms = Room.objects.all()
-    rooms = sorted(
-        rooms,
+    rooms_qs = Room.objects.all()
+    sorted_rooms = sorted(
+        list(rooms_qs),
         key=lambda room: (
             room.floor_number,
             [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', str(room.room_number))]
         ),
     )
-    paginator = Paginator(room_list, 50)
+    paginator = Paginator(sorted_rooms, 50)
     page_number = request.GET.get('page')
     rooms = paginator.get_page(page_number)
 
