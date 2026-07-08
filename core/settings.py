@@ -124,9 +124,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+
+AUTH_USER_MODEL = 'accounts.User'
 STATIC_URL = '/static/'
+
 if os.environ.get('RENDER'):
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'kizitorj04@gmail.com', 'admin2025')
+    pass
+   
