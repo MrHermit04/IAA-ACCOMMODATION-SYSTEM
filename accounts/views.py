@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from core.forms import RoomBookingForm
 from django.core.exceptions import ValidationError
 from django.views.decorators.http import require_POST
+from djando.paginator import paginator
 
 # 1. User Registration View
 def register_view(request):
@@ -76,6 +77,9 @@ def room_list(request):
             [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', str(room.room_number))]
         ),
     )
+    paginator = Paginator(room_list, 50)
+    page_number = request.Get.get('page')
+    rooms = paginator.get_page(page_number)
 
     form = RoomBookingForm()
 
