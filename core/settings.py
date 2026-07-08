@@ -33,16 +33,18 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
+    
     'core',
     
 ]
+AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 
-AUTH_USER_MODEL = 'accounts.User'
+
 STATIC_URL = '/static/'
 
 if os.environ.get('RENDER'):

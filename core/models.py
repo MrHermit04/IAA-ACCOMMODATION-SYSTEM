@@ -1,8 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.core.exceptions import ValidationError
 import uuid
 import datetime
+
 
 class Block(models.Model):
     GENDER_CHOICES = [
@@ -87,7 +88,7 @@ class Booking(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other'),
     ]
-    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookings')
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='bookings')
     booking_date = models.DateTimeField(auto_now_add=True)
     semester = models.CharField(max_length=50) # e.g., "Semester 1"
@@ -154,4 +155,3 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Control Number: {self.control_number} - Booking {self.booking.id}"
-
