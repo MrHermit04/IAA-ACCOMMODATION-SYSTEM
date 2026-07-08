@@ -78,7 +78,7 @@ def room_list(request):
         ),
     )
     paginator = Paginator(room_list, 50)
-    page_number = request.Get.get('page')
+    page_number = request.GET.get('page')
     rooms = paginator.get_page(page_number)
 
     form = RoomBookingForm()
