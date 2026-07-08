@@ -12,13 +12,12 @@ class Command(BaseCommand):
             try:
                 block = Block.objects.get(name=block_name)
             except Block.DoesNotExist:
-                self.stdout.write(self.style.ERROR(f'{block_name} haipo. Tafadhali tengeneza Blocks 8 kwanza kwenye admin'))
+                self.stdout.write(self.style.ERROR(f'{block_name} haipo. Tengeneza Blocks 8 kwanza'))
                 return
                 
             for floor_num in range(1, 6): # FLOOR 1 hadi 5
                 rooms_to_create = []
                 for room_num in range(1, 21): # ROOM 1 hadi 20
-                    # Room number itakuwa: 101, 102... 501, 502... 
                     room_number = f"{floor_num}{room_num:02d}"
                     
                     rooms_to_create.append(
@@ -28,8 +27,8 @@ class Command(BaseCommand):
                             floor_number=floor_num,
                             capacity=6,
                             price_per_semester=200000.0,
-                            has_communal_ensuite=True,
-                            is_full=False
+                            has_communal_ensuite=True
+                            # TUMEONDOA is_full=HAPA
                         )
                     )
                 
