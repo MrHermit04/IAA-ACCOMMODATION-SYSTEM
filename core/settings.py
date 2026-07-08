@@ -126,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 if os.environ.get('RENDER'):
-    django.contrib.auth import get_user.model
+    from django.contrib.auth import get_user_model
     User = get_user_model()
     if not User.objects.filter(username='admin').exists():
         User.objects.create_superuser('admin', 'kizitorj04@gmail.com', 'admin2025')
