@@ -112,7 +112,7 @@ def contact(request,) :
 def apply_room_allocation(request, room_id):
     selected_room = None
     
-        try:
+    try:
             selected_room = Room.objects.get(id=room_id)
         except Room.DoesNotExist:
             pass
