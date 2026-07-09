@@ -100,7 +100,7 @@ def my_bookings(request):
     bookings = request.user.bookings.all()
     return render(request, 'core/my_bookings.html', {'bookings' : bookings})
 
-def contact(request) : 
+def contact(request,) : 
     if request.method == 'POST' :
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -108,13 +108,10 @@ def contact(request) :
         messages.success(request, 'Your message is successful received. Thanks')
     return render(request, 'core/contact.html')
 
-@login_required
-def apply_room_allocation(request):
+
+def apply_room_allocation(request, room_id):
     selected_room = None
-    room_id = request.GET.get('room_id')
     
-    # If room_id is provided in GET, pre-select it
-    if room_id:
         try:
             selected_room = Room.objects.get(id=room_id)
         except Room.DoesNotExist:
