@@ -95,7 +95,7 @@
 
                 <!-- Card Footer - Action Button -->
                 <div style="padding: 15px 20px; background-color: #f8f9fa; border-top: 1px solid #e0e0e0;">
-                    <a href="{% url 'apply_room' %}?room_id={{ room.id }}" class="btn w-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-weight: 600; padding: 10px; border-radius: 8px; transition: all 0.3s ease;">
+                    <a href="{% url 'apply_room' room.id %}" class="btn w-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-weight: 600; padding: 10px; border-radius: 8px; transition: all 0.3s ease;">
                         <i class="fas fa-check-circle"></i> Apply for Room
                     </a>
                 </div>
