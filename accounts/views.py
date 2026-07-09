@@ -114,8 +114,8 @@ def apply_room_allocation(request, room_id):
     
     try:
             selected_room = Room.objects.get(id=room_id)
-        except Room.DoesNotExist:
-            pass
+    except Room.DoesNotExist:
+        pass
     
     if request.method == 'POST':
         form = RoomBookingForm(request.POST)
