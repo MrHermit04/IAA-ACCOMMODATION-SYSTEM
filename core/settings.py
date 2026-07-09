@@ -132,4 +132,7 @@ STATIC_URL = '/static/'
 
 if os.environ.get('RENDER'):
     pass
-   
+    
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'   
