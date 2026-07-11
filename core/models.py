@@ -88,7 +88,7 @@ class Booking(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other'),
     ]
-    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookings')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='bookings')
     booking_date = models.DateTimeField(auto_now_add=True)
     semester = models.CharField(max_length=50) # e.g., "Semester 1"

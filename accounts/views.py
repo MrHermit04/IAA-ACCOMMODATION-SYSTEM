@@ -122,7 +122,7 @@ def apply_room_allocation(request, room_id):
         if form.is_valid():
             # Create a booking instance but do not save to DB yet
             booking = form.save(commit=False)
-            booking.student = request.user  # Automatically assign the logged-in student
+            booking.student = None  # Automatically assign the logged-in student
             booking.status = 'PENDING'     # Set default status
             booking.first_name = form.cleaned_data['first_name']
             booking.middle_name = form.cleaned_data['middle_name']
