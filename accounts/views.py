@@ -95,7 +95,8 @@ def room_list(request):
         'form': form,
     })
 
-@login_required
+
+
 def my_bookings(request):
     bookings = request.user.bookings.all()
     return render(request, 'core/my_bookings.html', {'bookings' : bookings})
@@ -161,7 +162,7 @@ def apply_room_allocation(request, room_id):
     context = {'form': form, 'selected_room': selected_room}
     return render(request, 'core/apply_room.html', context)
 
-@login_required
+
 def payment_details(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, student=request.user)
     payment = booking.payments.order_by('-id').first()
@@ -170,7 +171,7 @@ def payment_details(request, booking_id):
         'payment': payment,
     })
 
-@login_required
+
 @require_POST
 def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, student=request.user)
