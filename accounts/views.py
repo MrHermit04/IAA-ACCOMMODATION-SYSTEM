@@ -5,7 +5,7 @@ from django.db.models import F, Count, Q
 from core.models import Block, Room, Booking, Payment
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+
 from core.forms import RoomBookingForm
 from django.core.exceptions import ValidationError
 from django.views.decorators.http import require_POST
@@ -115,6 +115,8 @@ def apply_room_allocation(request, room_id):
     try:
             selected_room = Room.objects.get(id=room_id)
     except Room.DoesNotExist:
+        messages.error(request, "Room does not exist")
+        return redirect('rooms_list')
         pass
     
     if request.method == 'POST':
