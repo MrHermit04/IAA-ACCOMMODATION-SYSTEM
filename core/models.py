@@ -110,7 +110,8 @@ class Booking(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Booking for {self.student.username} in {self.room}"
+        student_name = self.student.username if self.student else "Guest"
+        return f"Booking for {student_name} in Room {self.room.room_number}"
 
     def process_payment(self):
         """Actionable method to confirm booking after student payment."""
