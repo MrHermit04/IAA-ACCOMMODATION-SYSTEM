@@ -164,7 +164,7 @@ def apply_room_allocation(request, room_id):
 
 
 def payment_details(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id, student=request.user)
+    booking = get_object_or_404(Booking, id=booking_id, )
     payment = booking.payments.order_by('-id').first()
     return render(request, 'core/payment_details.html', {
         'booking': booking,
