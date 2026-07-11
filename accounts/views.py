@@ -46,7 +46,7 @@ def logout_view(request):
     return render(request, 'accounts/logout.html')
 
 # 4. Dashboard View (Only accessible if logged in)
-@login_required(login_url='login')
+
 def dashboard_view(request):
     # This renders the main student/user portal
     return render(request, 'accounts/dashboard.html')
