@@ -22,7 +22,7 @@ def register_view(request):
             return redirect('login')
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'core/register.html', {'form': form})
 
 # 2. User Login View
 def login_view(request):
