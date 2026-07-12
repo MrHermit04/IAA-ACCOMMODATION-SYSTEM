@@ -1,4 +1,5 @@
 import re
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import F, Count, Q
@@ -96,11 +97,12 @@ def room_list(request):
     })
 
 
-
+@login_required
 def my_bookings(request):
     bookings = request.user.bookings.all()
     return render(request, 'core/my_bookings.html', {'bookings' : bookings})
 
+@login_required
 def contact(request,) : 
     if request.method == 'POST' :
         name = request.POST.get('name')
@@ -109,7 +111,7 @@ def contact(request,) :
         messages.success(request, 'Your message is successful received. Thanks')
     return render(request, 'core/contact.html')
 
-
+@login_required
 def apply_room_allocation(request, room_id):
     selected_room = None
     
@@ -118,14 +120,14 @@ def apply_room_allocation(request, room_id):
     except Room.DoesNotExist:
         messages.error(request, "Room does not exist")
         return redirect('rooms_list')
-        pass
+        
     
     if request.method == 'POST':
         form = RoomBookingForm(request.POST)
         if form.is_valid():
             # Create a booking instance but do not save to DB yet
             booking = form.save(commit=False)
-            booking.student = None  # Automatically assign the logged-in student
+            booking.student = request.user  # Automatically assign the logged-in student
             booking.status = 'PENDING'     # Set default status
             booking.first_name = form.cleaned_data['first_name']
             booking.middle_name = form.cleaned_data['middle_name']
@@ -162,9 +164,9 @@ def apply_room_allocation(request, room_id):
     context = {'form': form, 'selected_room': selected_room}
     return render(request, 'core/apply_room.html', context)
 
-
+@login_required
 def payment_details(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id, )
+    booking = get_object_or_404(Booking, id=booking_id, student=request.user )
     payment = booking.payments.order_by('-id').first()
     return render(request, 'core/payment_details.html', {
         'booking': booking,

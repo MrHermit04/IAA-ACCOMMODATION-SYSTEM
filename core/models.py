@@ -111,7 +111,7 @@ class Booking(models.Model):
 
     def __str__(self):
         student_name = self.student.username if self.student else "Guest"
-        return f"Booking for {student_name} in Room {self.room.room_number}"
+        return f"Booking for {self.student.username} in Room {self.room.room_number}"
 
     def process_payment(self):
         """Actionable method to confirm booking after student payment."""
