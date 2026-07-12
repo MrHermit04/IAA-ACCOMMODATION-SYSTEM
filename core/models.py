@@ -130,12 +130,17 @@ class Payment(models.Model):
     Model to track billing control numbers and transactions. 
     In Tanzania, this connects to institutional billing systems (e.g., GePG).
     """
+    user = models.Foreignkey('auth.User', on_delete=models.CASCADE , null=True, blank=True)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='payments')
     control_number = models.CharField(max_length=20, unique=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     is_successful = models.BooleanField(default=False)
     transaction_date = models.DateTimeField(null=True, blank=True)
     receipt_number = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        user_name = self.user.username if self.user else "No User"
+        return f"{user_name} - {self.control_number} - TZS {self.amount}"
 
     def generate_control_number(self):
         """
