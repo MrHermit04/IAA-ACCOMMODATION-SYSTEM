@@ -32,99 +32,97 @@
     </div>
     {% endif %}
 
-    <!-- Rooms Grid -->
-    <div class="row g-4">
-    {% for room in rooms %}
-        <div class="col-lg-6 col-xl-4">
-            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; overflow: hidden; transition: all 0.3s ease;">
-                <!-- Card Header with Color -->
-                <div style="background: linear-gradient(135deg, {{ room.primary_color }} 0%, {{ room.secondary_color }} 100%); padding: 20px; color: white;">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <h5 class="mb-1" style="font-weight: 700; font-size: 20px;">{{ room.room_number }}</h5>
-                            <small style="opacity: 0.9;">{{ room.block.name }}</small>
-                        </div>
-                        <div style="background-color: rgba(255,255,255,0.3); padding: 8px 12px; border-radius: 6px;">
-                            <small style="font-weight: 600;">{{ room.status_badge }}</small>
-                        </div>
-                    </div>
-                </div>
+<!-- Rooms Grid -->
+<div class="row g-4"> 
+  {% for room in rooms %} 
+  <div class="col-12 col-md-6 col-xl-4"> 
+    <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; overflow: hidden; transition: all 0.3s ease;"> 
+      
+      <!-- Card Header with Color --> 
+      <div style="background: linear-gradient(135deg, {{ room.primary_color }} 0%, {{ room.secondary_color }} 100%); padding: 20px; color: white;"> 
+        <div class="d-flex justify-content-between align-items-start"> 
+          <div> 
+            <h5 class="mb-1" style="font-weight: 700; font-size: 20px;">{{ room.room_number }}</h5> 
+            <small style="opacity: 0.9;">{{ room.block.name }}</small> 
+          </div> 
+          <div style="background-color: rgba(255,255,255,0.3); padding: 8px 12px; border-radius: 6px;"> 
+            <small style="font-weight: 600;">{{ room.status_badge }}</small> 
+          </div> 
+        </div> 
+      </div> 
 
-                <!-- Card Body -->
-                <div class="card-body" style="padding: 20px;">
-                    <!-- Room Details Grid -->
-                    <div class="row mb-3">
-                        <div class="col-6 mb-3">
-                            <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Floor</small>
-                            <p class="mb-0" style="font-weight: 600; font-size: 16px; color: #333;">{{ room.floor_number }}</p>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Capacity</small>
-                            <p class="mb-0" style="font-weight: 600; font-size: 16px; color: #333;">{{ room.capacity }}</p>
-                        </div>
-                    </div>
+      <!-- Card Body --> 
+      <div class="card-body" style="padding: 20px;"> 
+        <!-- Room Details Grid --> 
+        <div class="row mb-3"> 
+          <div class="col-6 mb-3"> 
+            <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Floor</small> 
+            <p class="mb-0" style="font-weight: 600; font-size: 16px; color: #333;">{{ room.floor_number }}</p> 
+          </div> 
+          <div class="col-6 mb-3"> 
+            <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Capacity</small> 
+            <p class="mb-0" style="font-weight: 600; font-size: 16px; color: #333;">{{ room.capacity }}</p> 
+          </div> 
+        </div> 
 
-                    <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <small class="text-muted" style="font-weight: 600;">Occupancy</small>
-                            <span class="badge" style="background-color: {{ room.primary_color }}; color: white;">{{ room.current_occupants }}/{{ room.capacity }}</span>
-                        </div>
-                        <div style="background-color: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
-                            <div style="background: linear-gradient(90deg, {{ room.primary_color }} 0%, {{ room.secondary_color }} 100%); width: {{ room.occupancy_percentage }}%; height: 100%; border-radius: 4px;"></div>
-                        </div>
-                    </div>
+        <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 15px;"> 
+          <div class="d-flex justify-content-between align-items-center mb-2"> 
+            <small class="text-muted" style="font-weight: 600;">Occupancy</small> 
+            <span class="badge" style="background-color: {{ room.primary_color }}; color: white;">{{ room.current_occupants }}/{{ room.capacity }}</span> 
+          </div> 
+          <div style="background-color: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;"> 
+            <div style="background: linear-gradient(90deg, {{ room.primary_color }} 0%, {{ room.secondary_color }} 100%); width: {{ room.occupancy_percentage }}%; height: 100%; border-radius: 4px;"></div> 
+          </div> 
+        </div> 
 
-                    <!-- Price Section -->
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 15px; border-radius: 8px; color: white; margin-bottom: 15px; text-align: center;">
-                        <small style="opacity: 0.9;">Price per Semester</small>
-                        <h5 class="mb-0" style="font-weight: 700;">TZS {{ room.price_per_semester|floatformat:0 }}</h5>
-                    </div>
+        <!-- Price Section --> 
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 15px; border-radius: 8px; color: white; margin-bottom: 15px; text-align: center;"> 
+          <small style="opacity: 0.9;">Price per Semester</small> 
+          <h5 class="mb-0" style="font-weight: 700;">TZS {{ room.price_per_semester|floatformat:0 }}</h5> 
+        </div> 
 
-                    <!-- Amenities -->
-                    <div class="mb-3">
-                        <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Amenities</small>
-                        <div class="mt-2">
-                            {% if room.has_communal_ensuite %}
-                                <span class="badge" style="background-color: #e8f4f8; color: #00bcd4; margin-right: 6px;">🚿 Ensuite</span>
-                            {% else %}
-                                <span class="badge" style="background-color: #f0f9ff; color: #2196F3;">🚿 Standard</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+        <!-- Amenities --> 
+        <div class="mb-3"> 
+          <small class="text-muted" style="font-weight: 600; font-size: 11px; text-transform: uppercase;">Amenities</small> 
+          <div class="mt-2"> 
+            {% if room.has_communal_ensuite %} 
+            <span class="badge" style="background-color: #e8f4f8; color: #00bcd4; margin-right: 6px;">🚿 Ensuite</span> 
+            {% else %} 
+            <span class="badge" style="background-color: #f0f9ff; color: #2196F3;">🚿 Standard</span> 
+            {% endif %} 
+          </div> 
+        </div> 
+      </div> 
 
-                <!-- Card Footer - Action Button -->
-                <div style="padding: 15px 20px; background-color: #f8f9fa; border-top: 1px solid #e0e0e0;">
-                  {% if user.is_authenticated %}
-                    <a href="{% url 'apply_room' room.id %}" class="btn w-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-weight: 600; padding: 10px; border-radius: 8px; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle"></i> Apply for Room
-                    </a>
-                   
-                  {% else %}
-                    <a href="{% url 'login' %}?next=/apply/{{ room.id}}/" class="btn w-100 btn-warning">
-                        <i class="fas fa-lock"></i> Login to Apply
-                    </a>
-                    <p class="text-center mt-2">
-                        Don't have an account? <a href="{% url 'register' %}">Register here</a>
-                    </p>
-                  {% endif}  
-                </div>
-            </div>
-        </div>
-        
-    {% empty %}
-        <div class="col-12">
-            <div class="card border-0 shadow-sm" style="border-radius: 12px;">
-                <div class="card-body text-center p-5">
-                    <i class="fas fa-inbox" style="font-size: 48px; color: #ddd; margin-bottom: 20px;"></i>
-                    <h5 style="color: #999; font-weight: 600;">No Rooms Available</h5>
-                    <p class="text-muted mb-0">Check back later for available accommodations</p>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-    </div>
+      <!-- Card Footer - Action Button --> 
+      <div style="padding: 15px 20px; background-color: #f8f9fa; border-top: 1px solid #e0e0e0;"> 
+        {% if user.is_authenticated %} 
+        <a href="{% url 'apply_room' room.id %}" class="btn w-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-weight: 600; padding: 10px; border-radius: 8px; transition: all 0.3s ease;"> 
+          <i class="fas fa-check-circle"></i> Apply for Room 
+        </a> 
+        {% else %} 
+        <a href="{% url 'login' %}?next=/apply/{{ room.id }}/" class="btn w-100 btn-warning"> 
+          <i class="fas fa-lock"></i> Login to Apply 
+        </a> 
+        <p class="text-center mt-2 mb-0"> Don't have an account? <a href="{% url 'register' %}">Register here</a></p> 
+        {% endif %} 
+      </div> 
+      
+    </div> 
+  </div> 
+  {% empty %} 
+  <div class="col-12"> 
+    <div class="card border-0 shadow-sm" style="border-radius: 12px;"> 
+      <div class="card-body text-center p-5"> 
+        <i class="fas fa-inbox" style="font-size: 48px; color: #ddd; margin-bottom: 20px;"></i> 
+        <h5 style="color: #999; font-weight: 600;">No Rooms Available</h5> 
+        <p class="text-muted mb-0">Check back later for available accommodations</p> 
+      </div> 
+    </div> 
+  </div> 
+  {% endfor %} 
 </div>
+
 
 <style>
     .card {
