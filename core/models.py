@@ -88,8 +88,8 @@ class Booking(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other'),
     ]
-    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='bookings')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookings')
+    room = models.ForeignKey('Room', on_delete=models.CASCADE, related_name='bookings')
     booking_date = models.DateTimeField(auto_now_add=True)
     semester = models.CharField(max_length=50) # e.g., "Semester 1"
     first_name = models.CharField(max_length=100)
@@ -130,8 +130,8 @@ class Payment(models.Model):
     Model to track billing control numbers and transactions. 
     In Tanzania, this connects to institutional billing systems (e.g., GePG).
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE , null=True, blank=True)
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='payments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
+    booking = models.ForeignKey('Booking', on_delete=models.CASCADE, related_name='payments')
     control_number = models.CharField(max_length=20, unique=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     is_successful = models.BooleanField(default=False)
